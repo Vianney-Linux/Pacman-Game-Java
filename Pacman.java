@@ -1,16 +1,22 @@
+// Importation of all the dependencies
 import java.awt.*;
 import java.awt.event.*;
 import java.util.HashSet;
 import java.util.Random;
 import javax.swing.*;
-
+/*
+Creation of the class Pacman inherit of the class ActionListener and KeyListener
+-ActionListener: To manage the differnt actions when the User will press a specific button
+-KeyListener:To get the ASCII code of a Keyboard Button pressed by the User
+*/
 public class Pacman extends JPanel implements ActionListener,KeyListener{
+//Attributes
 private int row=21;
 private int column=19;
 private int areaGame=32;
 private int Width=column*areaGame;
 private int Height=row*areaGame;
-
+//Attributes to store the different images
 private Image wall;
 private Image blueGhost;
 private Image redGhost;
@@ -20,13 +26,14 @@ private Image leftPacman;
 private Image rightPacman;
 private Image upPacman;
 private Image downPacman;
-
+//HashSet of Block
 HashSet<Block> walls;
 HashSet<Block> ghosts;
 Block pacmans;
 HashSet<Block> foods;
-
+//A new Class
 public class Block{
+//Block Attributes
 int x;
 int y;
 int Width;
@@ -43,7 +50,7 @@ char newGhostDirection;
 int pacmanLife=100;
 int ghostDamage=25;
 int score=0;
-
+//Block Constructor
 public Block(int x,int y,int Width,int Height,Image image){
 this.x=x;
 this.y=y;
@@ -53,7 +60,7 @@ this.startX=x;
 this.startY=y;
 this.image=image;
 }
-
+//Move the Object by velocity of 8 Pixels
 public void updateDirection(char direction){
 this.direction=direction;
 updateVelocity();
@@ -79,9 +86,8 @@ this.velocityY=0;
 break;
 }
 }
-
+//reset to the initial position
 public void resetPosition(){
-
 this.x=this.startX;
 this.y=this.startY;
 }
@@ -89,7 +95,7 @@ this.y=this.startY;
 
 }
 
-//Constructor
+//Pacman Constructor
 public Pacman(){
 setPreferredSize(new Dimension(Width,Height));//Change the size of the window
 setBackground(Color.BLACK);//Set the color to Black
@@ -117,7 +123,16 @@ ghost.newGhostDirection=ghost.ghostDirection[ghost.random.nextInt(4)];
 ghost.updateDirection(ghost.newGhostDirection);
 }
 }
-
+/*The Game Map where:
+'X' represent a Wall,
+'O' represent a Empty Space,
+'b' represent Blue Ghost,
+'o' represent Orange Ghost,
+'r' represent Red Ghost,
+'p' represent Pink Ghost,
+'P' represent Pacman
+*/
+//The First Map
 String[] map={
 "XXXXXXXXXXXXXXXXXXX",
 "X        X        X",
@@ -141,8 +156,7 @@ String[] map={
 "X                 X",
 "XXXXXXXXXXXXXXXXXXX",
 };
-
-
+//The Second Map
 String[] map1={
 "XXXXXXXXXXXXXXXXXXX",
 "X O      X      O X",
@@ -166,15 +180,13 @@ String[] map1={
 "XXXXX X X X X XXXXX",
 "XXXXXXXXXXXXXXXXXXX",
 };
-Block pacman;
-
-
+Block pacman;//Object or Instance of a Pacman class
 public void gameMap(String[] map){
+// Creation of the Data structure
 walls=new HashSet<Block>();
 foods=new HashSet<Block>();
 ghosts=new HashSet<Block>();
-
-
+//Store the position of the elements in a Data structire(HashSet of Block) according to the Game map
 for(int i=0;i<row;i++){
 for(int j=0;j<column;j++){
 String currentCharacter=map[i];
@@ -215,12 +227,13 @@ break;
 }
 }
 }
+//Method to draw the initial settings
 @Override
 public void paintComponent(Graphics g){
 super.paintComponent(g);
 spawn(g);
 }
-
+//Method to draw the elements(Ghosts,Pacman and Wall) on the window
 public void spawn(Graphics g){
 g.drawImage(pacman.image,pacman.x,pacman.y,areaGame,areaGame,null);
 for(Block ghost:ghosts){
@@ -237,24 +250,33 @@ g.setFont(new Font("Times New Roman",Font.BOLD,16));
 g.drawString("Life Points: "+String.valueOf(pacman.pacmanLife),areaGame/2,areaGame/2);
 g.drawString("Score: "+String.valueOf(pacman.score),areaGame,areaGame);
 
-if((pacman.pacmanLife==0)){
+if((pacman.pacmanLife==0)){//Check if Pacman is still alive
 g.drawString("Pacman Death!!!",Width/2,Height/2);
 g.drawString("Score: "+String.valueOf(pacman.score),Width,Height);
 }
 }
 
 @Override
+//Method to execute the user event
+//Method of ActionListener Class
 public void actionPerformed(ActionEvent e){
-if(!(pacman.pacmanLife==0)){
-move();
-repaint();
+if(!(pacman.pacmanLife==0)){//Freeze the GameFlow if Pacman dead by stop the repainting
+move();//Execute the user motion
+repaint();//Redraw the new image within the different changement
 }
 }
+//Methods of the KeyListener class
 @Override
 public void keyTyped(KeyEvent e){
 }
 public void keyReleased(KeyEvent e){
 }
+/*Change the direction when a specific is pressed
+'w':Go Up
+'s':Go Down
+'a':Go Left
+'d':Go Right
+*/
 public void keyPressed(KeyEvent e){
 
 switch(e.getKeyCode()){
@@ -276,13 +298,15 @@ pacman.image=downPacman;
 break;
 }
 }
-
+//Method to move Pacman and Randomly move the ghosts
 public void move(){
+//Assume that Pacman can move
 pacman.x+=pacman.velocityX;
 pacman.y+=pacman.velocityY;
 
 for(Block wall:walls){
-if(collision(wall,pacman)){
+if(collision(wall,pacman)){//Check if there is a wall in front him
+//if yes,Undo the previous movement
 pacman.x-=pacman.velocityX;
 pacman.y-=pacman.velocityY;
 break;
@@ -290,22 +314,24 @@ break;
 }
 
 for(Block ghost:ghosts){
+//Assume that Ghost can moves
 ghost.x+=ghost.velocityX;
 ghost.y+=ghost.velocityY;
-if(ghost.y==9*areaGame && ghost.direction!='w' && ghost.direction!='s')
-ghost.updateDirection(ghost.ghostDirection[ghost.random.nextInt(2)]);
+if(ghost.y==9*areaGame && ghost.direction!='w' && ghost.direction!='s')//At the line 9 of a map 1,there's a little track(The ghosts can indefinely stack in that line)
+ghost.updateDirection(ghost.ghostDirection[ghost.random.nextInt(2)]);//Forcing all the ghosts to go up or down
 for(Block wall:walls){
-if(collision(ghost,wall)||ghost.x<=0 || ghost.x +ghost.Width>=Width){
+if(collision(ghost,wall)||ghost.x<=0 || ghost.x +ghost.Width>=Width){//Check if there is a wall in front him
+//if yes,Undo the previous movement
 ghost.x-=ghost.velocityX;
 ghost.y-=ghost.velocityY;
+//Recompile a new direction
 ghost.newGhostDirection=ghost.ghostDirection[ghost.random.nextInt(4)];
 ghost.updateDirection(ghost.newGhostDirection);
 }
 }
 }
-
+//If Pacman collapse with a ghost,Reduce his Life Point and reset position of both
 for(Block ghost:ghosts){
-
 if(collision(pacman,ghost)){
 pacman.resetPosition();
 ghost.resetPosition();
@@ -313,6 +339,7 @@ if(pacman.pacmanLife>0)
 pacman.pacmanLife-=ghost.ghostDamage;
 }
 }
+//if Pacman collapse with a food,increase his score and retrieve that food in a HashSet
 for(Block food:foods){
 if(collision(food,pacman)){
 foods.remove(food);
@@ -332,4 +359,3 @@ return  object1.x<object2.x + object2.Width&&
         object1.y+object1.Height>object2.y;
 }
 }
-
