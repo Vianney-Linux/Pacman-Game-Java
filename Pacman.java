@@ -103,15 +103,15 @@ addKeyListener(this);
 setFocusable(true);
 
 //Load Images
-wall=new ImageIcon(getClass().getResource("Images/wall.png")).getImage();
-blueGhost=new ImageIcon(getClass().getResource("Images/blueGhost.png")).getImage();
-redGhost=new ImageIcon(getClass().getResource("Images/redGhost.png")).getImage();
-orangeGhost=new ImageIcon(getClass().getResource("Images/orangeGhost.png")).getImage();
-pinkGhost=new ImageIcon(getClass().getResource("Images/pinkGhost.png")).getImage();
-upPacman=new ImageIcon(getClass().getResource("Images/pacmanUp.png")).getImage();
-downPacman=new ImageIcon(getClass().getResource("Images/pacmanDown.png")).getImage();
-rightPacman=new ImageIcon(getClass().getResource("Images/pacmanRight.png")).getImage();
-leftPacman=new ImageIcon(getClass().getResource("Images/pacmanLeft.png")).getImage();
+wall=new ImageIcon(getClass().getResource("wall.png")).getImage();
+blueGhost=new ImageIcon(getClass().getResource("blueGhost.png")).getImage();
+redGhost=new ImageIcon(getClass().getResource("redGhost.png")).getImage();
+orangeGhost=new ImageIcon(getClass().getResource("orangeGhost.png")).getImage();
+pinkGhost=new ImageIcon(getClass().getResource("pinkGhost.png")).getImage();
+upPacman=new ImageIcon(getClass().getResource("pacmanUp.png")).getImage();
+downPacman=new ImageIcon(getClass().getResource("pacmanDown.png")).getImage();
+rightPacman=new ImageIcon(getClass().getResource("pacmanRight.png")).getImage();
+leftPacman=new ImageIcon(getClass().getResource("pacmanLeft.png")).getImage();
 
 Timer gameLoop=new Timer(42,this);
 gameMap(map);
