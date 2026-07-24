@@ -1,31 +1,49 @@
-# Project Name
-
-Short description here.
+# Pac-Man 
+2D Game calls Pac-Man, where the yellow character(Pac-Man) have to eat all the foods without getting catch by any ghosts.  
+Pac-Man lost life points when he collapse with a ghost.
 
 ## Features
-- Feature 1
-- Feature 2
+-Cross-Platorm  
+-Mixage of Modular and OOP approaches 
 
 ## Installation
-Steps here...
+On Linux Terminal(Ubuntu and Debian Distribution):
+-sudo apt update && sudo apt upgrade  
+-sudo apt install openjdk -y 
 
-## Usage
-Examples here...
+## Usage and Ameliorations
+-You can design your own map and modify the call of gameMap() function  
+-Also you can add mutliple level and difficulty to the game.  
+-You can create a Stop button and a restart if the user want to play again 
 
 ## Project Structure
-Directory layout...
+Pac-Man-Game-Java/  
+├── orangeGhost.png   # Orange Ghost Image  
+│── ............png   # Other Image   
+├── Main.java/        # Main source code  
+├── Pacman.java/      # Helper Functions  
+├── README.md         # This file
 
 ## Requirements
-Dependencies...
+-Java(version 8++)  
+-Java Swing Library  
+-Win/MacOs/Linux
 
 ## Configuration
-Setup steps...
+-Compile the Main file: javac Main.java  
+-Run the compiled Main file: java Main  
+-Or Compile and Run the main file at once: javac Main.java && java Main
 
 ## Troubleshooting
-Common issues...
+If after eating all the food and you facing a problems/bugs,try to delete the if statement on the line 349,recompile and r-erun the main source file.
 
-## License
-MIT (or your license)
+## Contributing 
+-Open-Source  
+-Open to collaborations,ameliorations and updates
 
 ## Author
-Your name
+Name:Vianney-Linux  
+Github:Vianney水滨  
+Facebook:Vianney Djiele  
+Wechat:Vianney_Darel  
+Email:Vianneydjiele01@gmail.com/Vianneydjiele01@qq.com 
