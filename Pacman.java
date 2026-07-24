@@ -345,7 +345,8 @@ if(collision(food,pacman)){
 foods.remove(food);
 pacman.score++;
 break;
-}if(foods.size()==0){
+}
+if(foods.size()==0){
 gameMap(map1);
 }
 }
